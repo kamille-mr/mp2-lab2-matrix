@@ -203,3 +203,19 @@ TEST(TDynamicVector, cant_multiply_vectors_with_not_equal_size) {
 	TDynamicVector<int> v_2(10);
 	EXPECT_ANY_THROW(v_1 * v_2);
 }
+
+TEST(TDynamicVector, can_move_vectors){
+
+	TDynamicVector<int> v(10);
+	ASSERT_NO_THROW(TDynamicVector<int> v_2(std::move(v)));
+}
+
+TEST(TDynamicVector, moved_vector_is_equal_to_source_one){
+
+	TDynamicVector<int> v_1(5);
+	v_1[3] = 3;
+	TDynamicVector<int> v_2(5);
+	v_2[3] = 3;
+	TDynamicVector<int> res(std::move(v_1));
+	ASSERT_EQ(res, v_2);
+}

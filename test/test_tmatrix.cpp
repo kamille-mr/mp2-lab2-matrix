@@ -42,7 +42,7 @@ TEST(TDynamicMatrix, copied_matrix_has_its_own_memory){// with vector too proble
 TEST(TDynamicMatrix, can_get_size) {
 
 	TDynamicMatrix<int> m(5);
-	EXPECT_NO_THROW(m.size());
+	EXPECT_EQ(5, m.size());
 }
 
 TEST(TDynamicMatrix, can_set_and_get_element) {
@@ -67,8 +67,13 @@ TEST(TDynamicMatrix, throws_when_set_element_with_too_large_index) {
 
 TEST(TDynamicMatrix, can_assign_matrix_to_itself) {
 
-	TDynamicMatrix<int> m(5);
-	EXPECT_NO_THROW(m = m);
+	TDynamicMatrix<int> m(2);
+	m[0][0] = 5;
+	m[0][1] = 5;
+	m[1][0] = 5;
+	m[1][1] = 5;
+	m = m;
+	EXPECT_EQ(m, m);
 }
 
 TEST(TDynamicMatrix, can_assign_matrices_of_equal_size) {
@@ -89,7 +94,8 @@ TEST(TDynamicMatrix, can_assign_matrices_of_different_size) {
 
 	TDynamicMatrix<int> m_1(10);
 	TDynamicMatrix<int> m_2(5);
-	EXPECT_NO_THROW(m_1 = m_2);
+	m_1 = m_2;
+	EXPECT_EQ(m_1, m_2);
 }
 
 TEST(TDynamicMatrix, compare_equal_matrices_return_true) {
